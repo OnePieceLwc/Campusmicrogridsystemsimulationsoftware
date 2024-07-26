@@ -1,4 +1,4 @@
-# 园区微电网系统模拟(Campusmicrogridsystemsimulationsoftware)：
+# 园区微电网系统模拟(Campusmicrogridsystemsimulationsoftware)
 
   ⚡️效果直接访问：https://onepiecelwc.github.io/Campusmicrogridsystemsimulationsoftware/
   
