@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  background-image: url("园区微电网系统模拟.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 1000px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.title {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.label {
+  flex: 1;
+  text-align: right;
+}
+
+.input {
+  flex: 1;
+}
+
+input[type="text"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>园区微电网系统模拟</h1>
+
+  <div class="section">
+    <div class="title">电价</div>
+    <div class="row">
+      <div class="label">峰时电价(D):</div>
+      <div class="input"><input type="text" id="D"></div>
+    </div>
+    <div class="row">
+      <div class="label">平均电价(E):</div>
+      <div class="input"><input type="text" id="E"></div>
+    </div>
+    <div class="row">
+      <div class="label">平时电价(L):</div>
+      <div class="input"><input type="text" id="L"></div>
+    </div>
+    <div class="row">
+      <div class="label">谷时电价(G):</div>
+      <div class="input"><input type="text" id="G"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="title">时间(t)</div>
+    <div class="row">
+      <div class="label">电动汽车耗电时间(t1):</div>
+      <div class="input"><input type="text" id="t1"></div>
+    </div>
+    <div class="row">
+      <div class="label">慢充充电桩工作时间(t2):</div>
+      <div class="input"><input type="text" id="t2"></div>
+    </div>
+    <div class="row">
+      <div class="label">快充充电桩工作时间(t3):</div>
+      <div class="input"><input type="text" id="t3"></div>
+    </div>
+    <div class="row">
+      <div class="label">时间(t):</div>
+      <div class="input"><input type="text" id="t"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="title">功率</div>
+    <div class="row">
+      <div class="label">电动汽车耗电功率(P1):</div>
+      <div class="input"><input type="text" id="P1"></div>
+    </div>
+    <div class="row">
+      <div class="label">慢充充电桩工作功率(P2):</div>
+      <div class="input"><input type="text" id="P2"></div>
+    </div>
+    <div class="row">
+      <div class="label">快充充电桩工作功率(P3):</div>
+      <div class="input"><input type="text" id="P3"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="title">光伏功率</div>
+    <div class="row">
+      <div class="label">光伏发电功率(Ppv):</div>
+      <div class="input"><input type="text" id="Ppv"></div>
+    </div>
+    <div class="row">
+      <div class="label">负荷消耗功率(Pload):</div>
+      <div class="input"><input type="text" id="Pload"></div>
+    </div>
+    <div class="row">
+      <div class="label">电池储能系统功率(Pbess):</div>
+      <div class="input"><input type="text" id="Pbess"></div>
+    </div>
+    <div class="row">
+      <div class="label">柴油机工作功率(Pdiesel):</div>
+      <div class="input"><input type="text" id="Pdiesel"></div>
+    </div>
+    <div class="row">
+      <div class="label">上级电网回收限制(Pupper_grid_limit):</div>
+      <div class="input"><input type="text" id="Pupper_grid_limit"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="title">整体设备购买成本和使用年限</div>
+    <div class="row">
+      <div class="label">整体设备购买成本(A1):</div>
+      <div class="input"><input type="text" id="A1"></div>
+    </div>
+    <div class="row">
+      <div class="label">设备平均使用年限(T):</div>
+      <div class="input"><input type="text" id="T"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="title">其他参数</div>
+    <div class="row">
+      <div class="label">柴油单价(C):</div>
+      <div class="input"><input type="text" id="C"></div>
+    </div>
+    <div class="row">
+      <div class="label">外购电的碳排放量因子(I):</div>
+      <div class="input"><input type="text" id="I"></div>
+    </div>
+    <div class="row">
+      <div class="label">消耗单位柴油产生烟气量(K):</div>
+      <div class="input"><input type="text" id="K"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="title">上级电网状态</div>
+    <div class="row">
+      <div class="label"><input type="radio" name="grid_status" id="normal" value="1"> 正常</div>
+      <div class="label"><input type="radio" name="grid_status" id="fault" value="0"> 故障</div>
+    </div>
+  </div>
+
+  <button onclick="calculate()">计算</button>
+
+  <textarea id="result" rows="10" cols="80" readonly></textarea>
+
+</div>
+
+<script>
+function calculate() {
+  // 获取用户输入的变量
+  var D = parseFloat(document.getElementById("D").value);
+  var E = parseFloat(document.getElementById("E").value);
+  var L = parseFloat(document.getElementById("L").value);
+  var G = parseFloat(document.getElementById("G").value);
+  var P1 = parseFloat(document.getElementById("P1").value);
+  var P2 = parseFloat(document.getElementById("P2").value);
+  var P3 = parseFloat(document.getElementById("P3").value);
+  var Ppv = parseFloat(document.getElementById("Ppv").value);
+  var Pload = parseFloat(document.getElementById("Pload").value);
+  var Pbess = parseFloat(document.getElementById("Pbess").value);
+  var Pdiesel = parseFloat(document.getElementById("Pdiesel").value);
+  var Pupper_grid_limit = parseFloat(document.getElementById("Pupper_grid_limit").value);
+  var t1 = parseFloat(document.getElementById("t1").value);
+  var t2 = parseFloat(document.getElementById("t2").value);
+  var t3 = parseFloat(document.getElementById("t3").value);
+  var t = parseFloat(document.getElementById("t").value);
+  var A1 = parseFloat(document.getElementById("A1").value);
+  var T = parseFloat(document.getElementById("T").value);
+  var C = parseFloat(document.getElementById("C").value);
+  var I = parseFloat(document.getElementById("I").value);
+  var K = parseFloat(document.getElementById("K").value);
+  var upper_grid_status = document.querySelector('input[name="grid_status"]:checked').value;
+
+  // 计算耗电量和工作量
+  var W1 = P1 * t1; // 电动汽车耗电量
+  var W2 = P2 * t2; // 慢充充电桩工作量
+  var W3 = P3 * t3; // 快充充电桩工作量
+
+  // 判断充电桩系统运行模式
+  var charging_mode;
+  var F;
+  if (W1 <= W2) {
+    if (W1 == 0) {
+      charging_mode = '第一种运行模式';
+      F = W2 * (D - G) + W3 * (D - G) + W3 * (D - L);
+    } else {
+      charging_mode = '第二种运行模式';
+      F = (W2 - W1) * (D - G) + W3 * (D - G) + W3 * (D - L);
+    }
+  } else {
+    var W4 = W1 - W2; // 剩余电动汽车耗电量
+    if (W4 <= W3) {
+      charging_mode = '第三种运行模式';
+      F = (W4 - W3) * (D - L) + W3 * (D - G);
+    } else {
+      var W5 = W3 - (W4 - W3); // 剩余电动汽车耗电量
+      charging_mode = '第四种运行模式';
+      F = (W3 - W5) * (D - G);
+    }
+  }
+
+  // 光伏发电和负荷功率
+  var Wpv = Ppv * t;
+  var Wload = Pload * t;
+  var Wbess = Pbess * t;
+  var Wdiesel = Pdiesel * t;
+  var upper_grid_limit = Pupper_grid_limit * t;
+
+  // 整体设备购买成本和年平均成本
+  var A = (A1 + A1 * 0.03 * T) / (T * 365);
+
+  // 判断光伏发电系统运行模式
+  var system_mode;
+  var X;
+  var Y;
+  var SCR;
+  var SSR;
+  var Emission;
+  var Gas;
+  if (Wload >= 0 && Wload <= 8) {
+    if (Wpv >= 0 && Wpv <= 12) {
+      if (8 <= Wpv && Wpv <= 12) {
+        if (Wpv - Wload <= 4) {
+          system_mode = '第三种运行模式';
+          X = A;
+          Y = (Wpv - Wload) * D + F;
+          SCR = 100;
+          SSR = (Wpv / Wload) * 100;
+          Emission = 0;
+          Gas = 0;
+        } else {
+          Wbess = 4;
+          if (upper_grid_status == 1) {
+            if (Wpv - Wload - Wbess <= upper_grid_limit) {
+              system_mode = '第四种运行模式';
+              X = A;
+              Y = Wbess * D + (Wpv - Wload - Wbess) * E + F;
+              SCR = 100;
+              SSR = (Wpv / Wload) * 100;
+              Emission = 0;
+              Gas = 0;
+            } else {
+              system_mode = '第五种运行模式';
+              X = A;
+              Y = Wbess * D + upper_grid_limit * E + F;
+              SCR = ((Wload + Wbess + upper_grid_limit) / Wpv) * 100;
+              SSR = ((Wload + Wbess + upper_grid_limit) / Wload) * 100;
+              Emission = 0;
+              Gas = 0;
+            }
+          } else {
+            system_mode = '第六种运行模式';
+            X = A;
+            Y = Wbess * D + F;
+            SCR = ((Wload + Wbess) / Wpv) * 100;
+            SSR = ((Wload + Wbess) / Wload) * 100;
+            Emission = 0;
+            Gas = 0;
+          }
+        }
+      } else {
+        if (Wpv < 5) {
+          if (upper_grid_status == 1) {
+            system_mode = '第七种运行模式';
+            X = A + (Wload - Wpv) * E;
+            Y = F;
+            SCR = 100;
+            SSR = (Wpv / Wload) * 100;
+            Emission = (Wload - Wpv) * I;
+            Gas = 0;
+          } else {
+            if (Wdiesel > 0 && Wdiesel <= 5) {
+              system_mode = '第八种运行模式';
+              X = A + (Wload - Wpv) * 1000 * 0.2 * C;
+              Y = F;
+              SCR = 100;
+              SSR = (Wpv / Wload) * 100;
+              Emission = 0;
+              Gas = (Wload - Wpv) * 1000 * 0.2 * K;
+            } else {
+              system_mode = '第九种运行模式';
+            }
+          }
+        } else if (Wpv >= 5 && Wpv < 8) {
+          if (Wpv >= Wload) {
+            system_mode = '第十种运行模式';
+            X = A;
+            Y = (Wpv - Wload) * D + F;
+            SCR = 100;
+            SSR = (Wpv / Wload) * 100;
+            Emission = 0;
+            Gas = 0;
+          } else {
+            if (upper_grid_status == 1) {
+              system_mode = '第十一种运行模式';
+              X = A + (Wload - Wpv) * E;
+              Y = F;
+              SCR = 100;
+              SSR = (Wpv / Wload) * 100;
+              Emission = (Wload - Wpv) * I;
+              Gas = 0;
+            } else {
+              if (Wdiesel > 0 && Wdiesel <= 5) {
+                system_mode = '第十二种运行模式';
+                X = A + (Wload - Wpv) * 1000 * 0.2 * C;
+                Y = F;
+                SCR = 100;
+                SSR = (Wpv / Wload) * 100;
+                Emission = 0;
+                Gas = (Wload - Wpv) * 1000 * 0.2 * K;
+              } else {
+                system_mode = '第十三种运行模式';
+              }
+            }
+          }
+        }
+      }
+    } else {
+      system_mode = '第二种运行模式';
+    }
+  } else {
+    system_mode = '第一种运行模式';
+  }
+
+  // 输出结果
+  var result = document.getElementById("result");
+  result.value = '1充电桩系统的运行模式: ' + charging_mode + '\n';
+  result.value += '2充电桩系统的收益: ' + F.toFixed(2) + '\n';
+  result.value += '3光储联合系统的运行模式: ' + system_mode + '\n';
+  result.value += '4园区微电网系统的经济性(成本，收益): ' + X.toFixed(2) + ', ' + Y.toFixed(2) + '\n';
+  result.value += '5园区微电网系统的节能性(SCR，SSR): ' + SCR.toFixed(2) + '%, ' + SSR.toFixed(2) + '%\n';
+  result.value += '6园区微电网系统的环保性(碳排量，烟气量): ' + Emission.toFixed(2) + ', ' + Gas.toFixed(2) + '\n';
+}
+</script>
+
+</body>
+</html>
